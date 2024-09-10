@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Form</title>
+  <!-- Include Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Include Flatpickr CSS for datepicker functionality -->
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!-- Include Inter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- Fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      font-weight: 600;
+      /* Apply Inter font to the entire page */
+      background: #be9d54;
+    }
+
+    a:hover {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .search-tags {
+      margin-top: 20px;
+      padding: 11px 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 30px;
+      font-weight: 600;
+      line-height: 1;
+      display: inline-block;
+      margin-right: 12px;
+      margin-bottom: 18px;
+      -webkit-transition: 0.3s;
+      transition: 0.3s;
+    }
+
+    .banner {
+      display: flex;
+      flex-direction: column;
+      /* Stack navbar and content vertically */
+      justify-content: flex-start;
+      align-items: center;
+      /* Ensures the banner takes up at least 70% of the viewport height */
+      background-image: url("website-banner.png");
+      /* Replace with your image URL */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 62vh;
+      /* Text color for contrast */
+    }
+
+    @media only screen and (max-width: 1025px) {
+      .banner {
+        height: auto;
+      }
+    }
+
+    .booking-form-container {
+      background-color: rgb(255, 255, 255);
+      /* Add a slight background color to make form stand out */
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      /* max-width: 80%; */
+      /* Set a max width for better responsiveness */
+    }
+
+    .navbar {
+      background-color: #978667;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: #383838;
+      /* Adjust label font size */
+    }
+
+    .form-control {
+      font-size: 14px;
+      /* Adjust input font size */
+    }
+
+    .btns {
+      font-size: 16px;
+      background-color: #553812;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: white;
+
+      transition-property: background-color;
+      /* Adjust button font size */
+    }
+
+    .btns:hover {
+      background-color: #978667;
+      transition-duration: 0.2s;
+      transition-timing-function: ease-in-out;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      color: #0000009c;
+      font-weight: 600;
+    }
+
+    /* Styles for the new card section */
+    @media only screen and (min-width: 1025px) {
+      .card-section {
+        padding: 20px;
+        position: absolute;
+        left: 50%;
+        top: 37%;
+        transform: translateX(-50%);
+        width: 80%;
+      }
+
+      .card-section-container {
+        max-width: 75vw !important;
+      }
+    }
+
+    .card {
+      background-color: #be9d54;
+      border: 1px solid #be9d54;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: -77px;
+      padding: 3px;
+      text-align: center;
+    }
+
+    .navbar-brand {
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .card:nth-child(odd) {
+      background-color: #be9d54;
+      /* Light Cyan for odd cards */
+    }
+
+    .card:nth-child(even) {
+      background-color: #be9d54;
+      /* Light Pink for even cards */
+    }
+
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .navbar-brand img {
+      width: 100%;
+    }
+
+    .form_1_LargeScreens {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-items: center;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .form_2_SmallScreens {
+      display: none;
+    }
+
+    /* SMALL SCREEN CSS */
+
+    #smallScreen_Location_form {
+      display: flex;
+      padding: 5px 20px 5px 20px;
+      flex-direction: row;
+      align-items: baseline;
+      border-radius: 10px;
+      border: 1px solid rgba(128, 128, 128, 0.192);
+      background-color: #f3f3f3;
+    }
+
+    #smallScreen_Location_form select {
+      border: none;
+      background-color: #f3f3f3;
+      font-size: 14px;
+    }
+
+    #hotel_Small {
+      height: 48px;
+      background-color: #f3f3f3;
+      font-size: 14px;
+    }
+
+    .hotel_Small select {
+      border: none;
+    }
+
+    .hotel_Small select:focus {
+      box-shadow: none;
+      border: none;
+    }
+
+    .hotel_Small label {
+      font-weight: 500;
+    }
+
+    #date_SmallScreen {
+      display: flex;
+      border: 1px solid rgba(128, 128, 128, 0.192);
+      padding-top: 10px;
+      flex-direction: row;
+      align-items: center;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      flex-direction: column;
+      background-color: #f3f3f3;
+      width: 100%;
+    }
+
+    #date_SmallScreen input {
+      box-shadow: none;
+      background-color: #f3f3f3;
+    }
+
+    #date_SmallScreen input {
+      border: none;
+      display: flex;
+    }
+
+    #date_SmallScreen div {
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: baseline;
+      background-color: #f3f3f3;
+      padding-top: 2px;
+    }
+
+    .check-Head {
+      margin-bottom: 3px;
+      font-weight: 500;
+      text-transform: capitalize;
+      font-size: 14px;
+      color: #0000009c;
+      margin-bottom: 3px;
+    }
+
+    #nights_SmallScreen {
+      font-size: 12px;
+      padding: 3px 6px;
+      border-radius: 5px;
+      text-transform: capitalize;
+      font-weight: 400;
+      color: #383838;
+      background-color: #dddddd;
+      text-align: center;
+      margin: auto;
+      border: black;
+    }
+
+    .flatpickr-mobile {
+      margin: 0;
+    }
+
+    .adults_children_Small {
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      margin-bottom: 1px;
+    }
+
+    .adults_children_Select {
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(128, 128, 128, 0.192);
+      background-color: #f3f3f3;
+    }
+
+    .adults_children_Small div {
+      width: 100%;
+      margin-bottom: 0px;
+    }
+
+    .adults_children_Small div select,
+    .adults_children_Small div select:focus {
+      background-color: #f3f3f3;
+      border: none;
+    }
+
+    .adults_children_Small div p {
+      margin: 0px;
+      font-weight: 500;
+      text-transform: capitalize;
+      font-size: 14px;
+      color: #0000009c;
+      margin-bottom: 3px;
+    }
+
+    .adults_children_Small div select:focus {
+      box-shadow: none;
+      border: none;
+    }
+
+    .btns {
+      margin-top: 15px;
+      width: 100%;
+    }
+
+    #location_small:focus {
+      box-shadow: none;
+    }
+
+    #location_small option {
+      border-radius: 20px !important;
+    }
+
+    .location_div p {
+      font-size: 14px;
+      margin-bottom: 3px;
+      color: #0000009c;
+      font-weight: 500;
+    }
+
+    .check_wrapper {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      margin-top: 15px;
+      padding-bottom: 5px;
+    }
+
+    .check_In_Date {
+      width: 50%;
+    }
+
+    .check_Out_Date {
+      width: 50%;
+    }
+
+    i {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .adult_wrapper {
+      display: flex;
+      align-items: center;
+      padding-left: 10px;
+      margin-top: 15px;
+      padding-bottom: 5px;
+    }
+
+    .adults_children_head_ad_icon {
+      width: 50%;
+    }
+
+    .adults_children_head_ch_icon {
+      width: 50%;
+    }
+
+    .hotel_Small_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f3f3f3;
+      padding: 0px 15px;
+      font-size: 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(128, 128, 128, 0.192);
+    }
+
+    .hotel_Small_container i {
+      color: #0000009c;
+    }
+
+    #check_in {
+      background-color: white;
+    }
+
+    #check_out {
+      background-color: white;
+    }
+
+    .col-md-6 {
+      margin-top: 75px;
+      max-width: 47%;
+    }
+
+    /* MEDIA ---------------------------- */
+
+    @media only screen and (min-width: 1025px) {
+      .form-group {
+        max-width: 100%;
+      }
+    }
+
+    @media only screen and (min-width: 1020px) {
+      .booking-form-container {
+        width: 100%;
+        max-width: 80vw;
+      }
+
+      .form-group {
+        max-width: 20%;
+      }
+    }
+
+    @media only screen and (max-width: 830px) {
+      .booking-form-container {
+        width: 93%;
+      }
+
+      .card-section {
+        /* margin-top: 22vh; */
+        width: 100%;
+      }
+
+      .col-md-6 {
+        max-width: 100%;
+      }
+
+      .card {
+        margin-top: -65px;
+      }
+
+      .form_1_LargeScreens {
+        display: none;
+      }
+
+      .form_2_SmallScreens {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-control {
+        font-size: 12px;
+      }
+
+      .btns {
+        font-size: 13px;
+      }
+
+      .booking-form-container {
+        padding: 10px 15px;
+      }
+
+      .check-Head,
+      .adults_children_Small div p,
+      .hotel_Small label,
+      .btns {
+        font-size: 14px;
+        font-weight: 500;
+      }
+    }
+
+    @media screen and (max-width: 376px) {
+      #date_SmallScreen input {
+        width: 90%;
+        margin: auto;
+        display: block;
+      }
+
+      #nights_SmallScreen {
+        width: 100%;
+        border-radius: 5px;
+      }
+
+      .check-Head,
+      .adults_children_Small div p,
+      .hotel_Small label,
+      .btns {
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 1034px) {
+      .hotel-card {
+        margin-top: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Booking Form Banner -->
+  <div class="banner">
+    <div class="container">
+      <div class="d-flex flex-column justify-content-center align-items-center w-100" style="text-align: center">
+        <a class="navbar-brand" href="#">
+          <img src="logo-w.png" class="img-fluid pb-1" alt="ClayInn Hotel Logo" style="width: 50%" />
+        </a>
+      </div>
+    </div>
+    <!-- --------------------------------------------- -->
+    <div class="booking-form-container">
+      <!-- Large Screens -->
+      <form id="booking-form" class="form_1_LargeScreens" action="" method="GET" target="_parent">
+        <!-- Location Dropdown -->
+        <div class="form-group">
+          <label for="location">Location</label>
+          <select id="location" class="form-control">
+            <option value="new-delhi">New Delhi</option>
+            <option value="gurugram">Gurugram</option>
+          </select>
+        </div>
+
+        <!-- Hotel Dropdown -->
+        <div class="form-group">
+          <label for="hotel">Hotel</label>
+          <select id="hotel" class="form-control">
+            <option value="clay-inn-paschim-vihar">
+              Clay Inn Hotel Paschim Vihar
+            </option>
+          </select>
+        </div>
+
+        <!-- Check-In Date -->
+        <div class="form-group">
+          <label for="check_in">Check-In</label>
+          <input type="text" id="check_in" class="form-control arrival-date-input" readonly />
+        </div>
+
+        <!-- Check-Out Date -->
+        <div class="form-group">
+          <label for="check_out">Check-Out</label>
+          <input type="text" id="check_out" class="form-control departure-date-input" readonly />
+        </div>
+
+        <!-- Adults Dropdown -->
+        <div class="form-group">
+          <label for="adults">Adults</label>
+          <select id="adults" class="form-control">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+
+        <!-- Children Dropdown -->
+        <div class="form-group">
+          <label for="children">Children</label>
+          <select id="children" class="form-control">
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <input type="submit" class="btns" value="Book Now" />
+        </div>
+      </form>
+
+      <!-- Small Screens-------------------------------- -->
+      <form id="booking-form_Small" class="form_2_SmallScreens" action="" method="GET" target="_parent">
+        <!-- Location Dropdown -->
+
+        <div class="location_div">
+          <p>Location</p>
+          <div class="form-group" id="smallScreen_Location_form">
+            <div>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <select id="location_small" class="form-control">
+              <option value="new-delhi">Delhi</option>
+              <option value="gurugram">Gurugram</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Hotel Dropdown -->
+        <div class="form-group hotel_Small">
+          <label for="hotel">Hotel</label>
+          <div class="hotel_Small_container">
+            <div>
+              <i class="fa-solid fa-building"></i>
+            </div>
+            <select id="hotel_Small" class="form-control">
+              <option value="clay-inn-paschim-vihar">
+                Clay Inn Hotel Paschim Vihar
+              </option>
+            </select>
+          </div>
+        </div>
+
+        <div class="check_wrapper">
+          <p class="check-Head check_In_Date">
+            <i class="fa-regular fa-calendar-days"></i>CheckIn
+          </p>
+          <p class="check-Head check_Out_Date">
+            <i class="fa-solid fa-calendar-xmark"></i>CheckOut
+          </p>
+        </div>
+        <div id="date_SmallScreen">
+
+
+          <!-- Check-In Date -->
+          <div>
+            <div class="form-group">
+              <input type="text" id="check_in_Small" class="form-control arrival-date-input" readonly />
+            </div>
+            <!-- Check-Out Date -->
+            <div>
+              <p id="nights_SmallScreen"></p>
+            </div>
+            <div class="form-group">
+              <input type="text" id="check_out_Small" class="form-control departure-date-input" readonly />
+            </div>
+          </div>
+        </div>
+
+        <!-- Adults Dropdown -->
+        <div class="adults_children_Small">
+          <div class="adult_wrapper">
+            <p class="adults_children_head_ad_icon">
+              <i class="fa-solid fa-user"></i>
+              <span> Adults </span>
+            </p>
+            <p class="adults_children_head_ch_icon">
+              <i class="fa-solid fa-child"></i>
+              <span> Children </span>
+            </p>
+          </div>
+          <div class="adults_children_Select">
+            <div class="form-group">
+              <select id="adults" class="form-control">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <!-- Children Dropdown -->
+            <div class="form-group">
+              <select id="children" class="form-control">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <input type="submit" class="btns" value="Book Now" />
+        </div>
+      </form>
+    </div>
+
+    <div style="margin: 40px"></div>
+  </div>
+
+  <!-- New Section with Cards -->
+  <section class="card-section">
+    <div class="container card-section-container">
+      <div class="row hotel-card" style="justify-content: space-between">
+        <div class="col-md-6 text-center">
+          <a target="_blank" href="https://delhi.clayinnhotel.com/">
+            <div class="card">
+              <img src="delhi-min.png" alt="" class="img-fluid" style="border-radius: 8px" />
+            </div>
+          </a>
+          <a class="search-tags" target="_blank" href="https://delhi.clayinnhotel.com/">Paschim Vihar, New Delhi</a>
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="card">
+            <a target="_blank" href="https://gurugram.clayinnhotel.com/">
+              <img src="gurugram-m.png" alt="" class="img-fluid" style="border-radius: 8px" />
+            </a>
+          </div>
+          <a class="search-tags" target="_blank" href="https://gurugram.clayinnhotel.com/">Sector 49, Gurugram</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Include jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Include Flatpickr JS for datepicker functionality -->
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      // Initialize Flatpickr for Check-In Date in d-m-Y format (Large Screens)
+      const checkInInput = flatpickr("#check_in", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today",
+        minDate: "today",
+        onChange: function (selectedDates) {
+          const checkOutInput = document.querySelector("#check_out");
+          checkOutInput._flatpickr.set(
+            "minDate",
+            new Date(selectedDates[0].getTime() + 24 * 60 * 60 * 1000)
+          );
+          checkOutInput._flatpickr.setDate(
+            new Date(selectedDates[0].getTime() + 24 * 60 * 60 * 1000)
+          );
+          checkOutInput.focus();
+        },
+      });
+
+      // Initialize Flatpickr for Check-Out Date in d-m-Y format (Large Screens)
+      flatpickr("#check_out", {
+        dateFormat: "d-m-Y",
+        defaultDate: new Date().fp_incr(1),
+        minDate: new Date().fp_incr(1),
+      });
+
+      // Function to convert date format from d-m-Y to Y-m-d
+      function formatDateToISO(dateStr) {
+        const [day, month, year] = dateStr.split("-");
+        return `${year}-${month}-${day}`;
+      }
+
+      // Handle form submission for large screens
+      document
+        .getElementById("booking-form")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevent form submission
+
+          const location = document.getElementById("location").value;
+          const checkInDate = document.getElementById("check_in").value;
+          const checkOutDate = document.getElementById("check_out").value;
+          const adults = document.getElementById("adults").value;
+          const children = document.getElementById("children").value;
+
+          // Convert dates to Y-m-d format
+          const formattedCheckInDate = formatDateToISO(checkInDate);
+          const formattedCheckOutDate = formatDateToISO(checkOutDate);
+
+          let redirectUrl = "https://bookings.simplotel.com/?";
+
+          if (location === "new-delhi") {
+            redirectUrl += `chainId=9458&propertyId=9457&checkIn=${formattedCheckInDate}&checkOut=${formattedCheckOutDate}&adults=${adults}&children=${children}`;
+          } else if (location === "gurugram") {
+            redirectUrl += `chainId=9458&propertyId=9459&checkIn=${formattedCheckInDate}&checkOut=${formattedCheckOutDate}&adults=${adults}&children=${children}`;
+          }
+
+          window.location.href = redirectUrl;
+        });
+
+      // Dynamic dropdown for location and hotel selection (Large Screens)
+
+      document
+        .getElementById("location")
+        .addEventListener("change", function () {
+          const location = this.value;
+          const hotelDropdown = document.getElementById("hotel");
+          hotelDropdown.innerHTML = "";
+
+          if (location === "new-delhi") {
+            hotelDropdown.innerHTML +=
+              '<option value="clay-inn-paschim-vihar">Clay Inn Hotel Paschim Vihar</option>';
+          } else if (location === "gurugram") {
+            hotelDropdown.innerHTML +=
+              '<option value="clay-inn-gurugram">Clay Inn Hotel Gurugram</option>';
+          }
+        });
+
+
+      // Initialize Flatpickr for Check-In Date in d-m-Y format (Small Screens)
+      const checkInInput_Small = flatpickr("#check_in_Small", {
+        dateFormat: "d-m-Y",
+        defaultDate: "today",
+        minDate: "today",
+        onChange: function (selectedDates) {
+          const checkOutInput_Small = document.getElementById("check_out_Small");
+          const checkInDate = selectedDates[0];
+
+          // Calculate the next day (24 hours after check-in date)
+          const nextDay = new Date(checkInDate.getTime() + 24 * 60 * 60 * 1000);
+
+          // Update the checkout date picker
+          checkOutInput_Small._flatpickr.set("minDate", nextDay);
+          checkOutInput_Small._flatpickr.setDate(nextDay);
+          checkOutInput_Small.focus();
+        },
+      });
+
+      // Initialize Flatpickr for Check-Out Date in d-m-Y format (Small Screens)
+      const checkOutInput_Small = flatpickr("#check_out_Small", {
+        dateFormat: "d-m-Y",
+        defaultDate: new Date().fp_incr(1),
+        minDate: new Date().fp_incr(1),
+
+        onChange: function (checkoutDates) {
+          const checkInDate = checkInInput_Small.selectedDates[0];
+          const checkOutDate = checkoutDates[0];
+
+          // check-in date is selected first
+          if (!checkInDate) {
+            alert("Please select a check-in date first.");
+            this.clear();
+            return;
+          }
+
+          // heck-out is at least 1 day after check-in
+          if (checkOutDate <= checkInDate) {
+            alert("Check-out date cannot be the same as the check-in date. Please select a valid check-out date.");
+            this.clear();
+            return;
+          }
+
+          // Optional: Update nights calculation if needed
+          calculateNights(checkInDate, checkOutDate);
+        },
+      });
+
+
+      // Function to calculate and display the number of nights
+      function calculateNights(checkInDate, checkOutDate) {
+        if (checkInDate && checkOutDate) {
+          const timeDifference = checkOutDate - checkInDate;
+          const nights = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+          document.getElementById("nights_SmallScreen").textContent = `${nights}night`;
+        }
+      }
+
+      // Initial calculation of nights for small screens
+      const initialCheckIn = checkInInput_Small.selectedDates[0];
+      const initialCheckOut = checkOutInput_Small.selectedDates[0];
+      if (initialCheckIn && initialCheckOut) {
+        calculateNights(initialCheckIn, initialCheckOut);
+      }
+
+      // Dynamic dropdown for location and hotel selection (Small Screens)
+      document
+        .getElementById("location_small")
+        .addEventListener("change", function () {
+          const location_small = this.value;
+          const hotelDropdown_Small = document.getElementById("hotel_Small");
+          hotelDropdown_Small.innerHTML = "";
+
+          if (location_small === "new-delhi") {
+            hotelDropdown_Small.innerHTML +=
+              '<option value="clay-inn-paschim-vihar">Clay Inn Hotel Paschim Vihar</option>';
+          } else if (location_small === "gurugram") {
+            hotelDropdown_Small.innerHTML +=
+              '<option value="clay-inn-gurugram">Clay Inn Hotel Gurugram</option>';
+          }
+        });
+
+      // Submit handler
+      document.getElementById("booking-form_Small").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent form submission
+
+        const location_small = document.getElementById("location_small").value;
+        const checkInDate_Small = document.getElementById("check_in_Small").value;
+        const checkOutDate_Small = document.getElementById("check_out_Small").value;
+        const adults = document.getElementById("adults").value;
+        const children = document.getElementById("children").value;
+
+        // Check if checkout date is valid before proceeding
+        if (!checkOutDate_Small || checkOutDate_Small === checkInDate_Small) {
+          alert("Check-out date cannot be the same as the check-in date. Please select a valid check-out date.");
+          return;
+        }
+
+        const formattedCheckInDate = formatDateToISO(checkInDate_Small);
+        console.log(formattedCheckInDate)
+        const formattedCheckOutDate = formatDateToISO(checkOutDate_Small);
+
+        let redirectUrl = "https://bookings.simplotel.com/?";
+
+        if (location_small === "new-delhi") {
+          redirectUrl += `chainId=9458&propertyId=9457&checkIn=${formattedCheckInDate}&checkOut=${formattedCheckOutDate}&adults=${adults}&children=${children}`;
+        } else if (location_small === "gurugram") {
+          redirectUrl += `chainId=9458&propertyId=9459&checkIn=${formattedCheckInDate}&checkOut=${formattedCheckOutDate}&adults=${adults}&children=${children}`;
+        }
+
+        window.location.href = redirectUrl;
+      });
+    });
+
+  </script>
+</body>
+
+</html>
