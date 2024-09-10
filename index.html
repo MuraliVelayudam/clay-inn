@@ -786,6 +786,7 @@
         dateFormat: "d-m-Y",
         defaultDate: "today",
         minDate: "today",
+        disableMobile: "true",
         onChange: function (selectedDates) {
           const checkOutInput_Small = document.getElementById("check_out_Small");
           const checkInDate = selectedDates[0];
@@ -805,7 +806,7 @@
         dateFormat: "d-m-Y",
         defaultDate: new Date().fp_incr(1),
         minDate: new Date().fp_incr(1),
-
+        disableMobile: "true",
         onChange: function (checkoutDates) {
           const checkInDate = checkInInput_Small.selectedDates[0];
           const checkOutDate = checkoutDates[0];
@@ -817,7 +818,7 @@
             return;
           }
 
-          // heck-out is at least 1 day after check-in
+          // check-out is at least 1 day after check-in
           if (checkOutDate <= checkInDate) {
             alert("Check-out date cannot be the same as the check-in date. Please select a valid check-out date.");
             this.clear();
